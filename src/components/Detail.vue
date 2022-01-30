@@ -92,19 +92,20 @@
     <hr />
     <div class="row">
       <div class="row">
-        <div class="col-sm-6 d-grid gap-2 mt-2">
-          <button type="button" class="btn btn-light btn-lg px-5">Add to favorite</button>
+        <div class="col-sm-6 d-grid gap-1 mt-2">
+          <button type="button" class="btn btn-light btn-lg px-3">Add to favorite <i class="fas fa-heart"></i></button>
         </div>
-        <div class="col-sm-6 d-grid gap-2 mt-2">
+        <div class="col-sm-6 d-grid gap-1 mt-2">
           <button
             data-bs-toggle="modal"
             data-bs-target="#infoCart"
             type="button"
-            class="btn btn-dark btn-lg px-5"
+            class="btn btn-dark btn-lg px-3"
             :class="{ disabled: !colorSelected, disabled: !sizeSelected }"
             @click="addCart()"
           >
             Add to cart
+            <i class="fas fa-shopping-cart"></i>
           </button>
         </div>
       </div>
