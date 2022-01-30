@@ -46,7 +46,12 @@
                 :value="size"
                 v-model="sizeSelected"
               />
-              <label class="btn btn-outline-secondary btn-sm m-1" style="width:50px" :for="size">{{ size }}</label>
+              <label
+                class="btn btn-outline-secondary btn-sm m-1"
+                style="width: 50px"
+                :for="size"
+                >{{ size }}</label
+              >
             </div>
           </div>
         </div>
@@ -57,9 +62,24 @@
     <div class="row">
       <div class="col-6 text-start">
         <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-outline-secondary" :class="{ disabled: amount === 1 }" @click="decred">-</button>
-          <input class="form-control form-control-sm mx-1" style="width:60px" type="number" min="1" v-model="amount" />
-          <button type="button" class="btn btn-outline-secondary" @click="add()">+</button>
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            :class="{ disabled: amount === 1 }"
+            @click="decred"
+          >
+            -
+          </button>
+          <input
+            class="form-control form-control-sm mx-1"
+            style="width: 60px"
+            type="number"
+            min="1"
+            v-model="amount"
+          />
+          <button type="button" class="btn btn-outline-secondary" @click="add()">
+            +
+          </button>
         </div>
       </div>
       <div class="col text-start">
@@ -76,7 +96,14 @@
           <button type="button" class="btn btn-light btn-lg px-5">Add to favorite</button>
         </div>
         <div class="col-sm-6 d-grid gap-2 mt-2">
-          <button type="button" class="btn btn-dark btn-lg px-5" :class="{ disabled: !colorSelected,disabled: !sizeSelected}">
+          <button
+            data-bs-toggle="modal"
+            data-bs-target="#infoCart"
+            type="button"
+            class="btn btn-dark btn-lg px-5"
+            :class="{ disabled: !colorSelected, disabled: !sizeSelected }"
+            @click="addCart()"
+          >
             Add to cart
           </button>
         </div>
@@ -87,13 +114,18 @@
       </div>
     </div>
   </div>
-  
+
+  <ModalCart :data="dataCart"></ModalCart>
 </template>
 <script>
+import ModalCart from "./ModalCart.vue";
 export default {
   name: "Detail",
   props: {
     product: Object,
+  },
+  components:{
+      ModalCart
   },
   data() {
     return {
@@ -101,19 +133,29 @@ export default {
       sizeSelected: "",
       total: 0,
       amount: 1,
+      dataCart:{}
     };
   },
 
-  methods:{
-      totalAmount(){
-          return this.total = this.product.price * this.amount
-      },
-      add(){
-          this.amount ++
-      },
-      decred(){
-          this.amount --
-      }
-  }
+  methods: {
+    totalAmount() {
+      return (this.total = this.product.price * this.amount);
+    },
+    add() {
+      this.amount++;
+    },
+    decred() {
+      this.amount--;
+    },
+    addCart(){
+        this.dataCart.img = "https:"+this.product.featured_image
+        this.dataCart.title = this.product.title
+        this.dataCart.color = this.colorSelected
+        this.dataCart.size = this.sizeSelected
+        this.dataCart.total = this.total
+        this.dataCart.amount = this.amount
+        console.log(this.dataCart);
+    }
+  },
 };
 </script>
